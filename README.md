@@ -3,3 +3,5 @@ Movies website about potatos - boiled potatos, green potatos, fries, pluere and 
 Best for the bestest people, including the bestest of the bestest master race people.
 
 ## Admin: MiXiEEE (our great leader and comrade)
+
+Ronald: index.html & movies.html from 20:00 to 23:30 (about ~3 hours)
