@@ -15,37 +15,48 @@
 		<style>
 			body {
 				background-image: url(img/background.jpg);
-				background-repeat: repeat-x;
+				background-repeat: repeat;
 			}
 		</style>
 		<nav class="navbar  navbar-inverse ">
-	  		<div class="container-fluid navbar-inner">
+	  		<div class="container-fluid">
 	   	   	 <div class="navbar-header">
-	     		 <img class="logo img-responsive" type="image/png" src="img/potato_logo.png" >
+	   	   	 
+	   	   	 	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>                        
+      			</button>
+      			<a class=" navbar-left " href="index.html">
+	   	   
+  					<img type="image/svg+xml" src="img/potato_logo.svg"></a>
+	     		 
 	    	 </div>
+	    	   <div class="collapse navbar-collapse" id="myNavbar">
 		    	<ul class="nav navbar-nav">
 			      <li class="bar"><a href="index.html">Home</a></li>
 			      <li class="active bar"><a href="movies.html">Movies</a></li>
 			      <li class="bar"><a href="genres.html">Genres</a></li>
 			    
 		    	</ul>
-		    	<div class="input-group">
-		            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-		            <div class="input-group-btn">
-                		<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                	<button type="button" class="btn btn-default btn-sm signin">Sign in
-         				<span class="glyphicon glyphicon-user"></span>  
-       				</button>
-            		</div>
-        		</div>
+		    	<form class="navbar-form navbar-left">
+      				<div class="form-group">
+        				<input type="text" class="form-control" placeholder="Type film name or something else...">
+      				</div>
+      				<button type="submit" class="btn btn-default">Search</button>
+   				 </form>
+   				 <ul class="nav navbar-nav navbar-right">
+			        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+			        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      			</ul>
         			
-      </p>
+    
 	  		</div>
 		</nav>
 
 		<div class="container">
 			<div class="row">
-			<p class="cont_style">MOVIES</p>
+			<div class="row1"><p class="cont_style">MOVIES</p></div>
 			</div>
 
 			<div class="row row1">
@@ -55,7 +66,7 @@
       				</span>
 				</div>
 				<div class="col-sm-9 text">
-					<div class="row"><p class="h_style">Deadpool (2016)</p></div>
+					<div class="row"><p class="h_style"><a>Deadpool</a> <a>(2016)</a></p></div>
 					<p>A fast-talking mercenary with a morbid sense of humor is subjected to a rogue experiment that leaves him with accelerated healing powers and a quest for revenge.</p>
 					<p><strong>Genres:</strong>  <a>Action</a>, <a>Adventure</a>, <a>Comedy</a></p>
 					<p><strong>Director:</strong> <a>Tim Miller</a></p>
@@ -71,7 +82,7 @@
       				</span>
 				</div>
 				<div class="col-sm-9 text">
-					<div class="row"><p class="h_style">Constantine (2005)</p></div>
+					<div class="row"><p class="h_style"><a>Constantine</a> <a>(2005)</a></p></div>
 					<p>Supernatural detective John Constantine helps a policewoman prove her sister's death was not a suicide, but something more.</p>
 					<p><strong>Genres:</strong> <a>Drama</a>, <a>Fantasy</a>, <a>Horror</a> </p>
 					<p><strong>Director:</strong> <a>Francis Lawrence</a></p>
@@ -87,7 +98,7 @@
       				</span>
 				</div>
 				<div class="col-sm-9 text">
-					<div class="row"><p class="h_style">John Wick (2014)</p></div>
+					<div class="row"><p class="h_style"><a>John Wick</a> <a>(2014)</a></p></div>
 					<p>An ex-hitman comes out of retirement to track down the gangsters that took everything from him.</p>
 					<p><strong>Genres:</strong> <a>Action</a>, <a>Crime</a>, <a>Thriller</a> </p>
 					<p><strong>Directors:</strong> <a>Chad Stahelski</a>, <a>David Leitch</a></p>
@@ -97,5 +108,9 @@
 			</div>
 
 		</div>
+
+		<footer>
+			<p><a>potato-software 2017</a></p>
+		</footer>
 	</body>
 </html>
