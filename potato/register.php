@@ -101,7 +101,7 @@ session_destroy();
 		<div class="form-group"> 
 			<div class="col-md-6 col-xs-1"></div>
 			    <div class="button">
-			      <button type="submit" class="btn btn-primary btn-md" name="save" id="send">Register</button>
+			      <button type="submit" class="btn btn-primary btn-md" name="save" id="send" onclick="alert('You have successfully registered!')">Register</button>
 			    </div>
   		</div>
 	</div>
