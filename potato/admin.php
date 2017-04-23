@@ -88,6 +88,47 @@ $test = new DB_movie();
         $test->deleteUser($userID);
     }
     ?>
+
+    <form method = "post" action = "admin.php">
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="USERId">Edit user by ID:</label>
+          <input type="number" class="form-control" id="USERId" name="editUserID" placeholder="User ID...">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="userN">Enter new username:</label>
+          <input type="text" class="form-control" id="userN" name="editUserName" placeholder="Username...">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="userP">Enter new password:</label>
+          <input type="text" class="form-control" id="userP" name="editUserPass" placeholder="Password...">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="userE">Enter new e-mail:</label>
+          <input type="email" class="form-control" id="userE" name="editUserMail" placeholder="E-mail...">
+          <br>
+          <button type="submit" class="btn btn-success" name="userInput" onclick="alert('User is edited!')">Edit user</button>
+        </div>
+      </div>
+
+    
+    </form>
+
+    <?php
+    if(isset($_POST["userInput"])){
+        $userID = mysqli_real_escape_string($test->getCon(), $_POST["editUserID"]); 
+        $UserName = mysqli_real_escape_string($test->getCon(), $_POST["editUserName"]); 
+        $UserPass = md5(mysqli_real_escape_string($test->getCon(), $_POST["editUserPass"])); 
+        $UserMail = mysqli_real_escape_string($test->getCon(), $_POST["editUserMail"]); 
+        $test->editUser($userID, $UserName, $UserPass, $UserMail);
+    }
+    ?>
 </div>
 
 <div class="tab-pane text-style" id="tab4">
@@ -335,7 +376,7 @@ $test = new DB_movie();
   <?php $test->showAllCategories(); ?>   
 </div>
 <div class="tab-pane text-style" id="tab9">
-  <h2>Category data</h2>
+  <h2>Comment data</h2>
   <?php $test->showAllComments(); ?>   
 </div>
 
