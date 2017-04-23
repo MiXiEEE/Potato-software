@@ -35,6 +35,11 @@ class DB_movie{
 		$result=$this->con->query($sql);		
 	}
 
+	function editUser($userID, $username, $password, $email){
+		$sql = "UPDATE user SET user_name = '{$username}', password = '{$password}', e_mail = '{$email}' WHERE id = '{$userID}'";
+		$result=$this->con->query($sql);
+	}
+
 	function showAllUsers(){
 		$sql = "SELECT * FROM user";
 		$result=$this->con->query($sql);
