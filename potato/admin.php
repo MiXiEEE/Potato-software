@@ -2,6 +2,9 @@
 include("function.php");
 $test = new DB_movie();
 session_start();
+if(!isset($_SESSION['username'])){ 
+    header("Location: index.php");
+}
 ?>
 <html lang="en">
 	<head>
