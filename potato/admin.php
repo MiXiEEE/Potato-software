@@ -1,6 +1,7 @@
 <?php
 include("function.php");
 $test = new DB_movie();
+session_start();
 ?>
 <html lang="en">
 	<head>
@@ -21,8 +22,8 @@ $test = new DB_movie();
           <a href="index.php"><img class="logo img-responsive" type="image/png" src="img/potato_logo.png"></a>
         </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="index.php">Movies</a></li>
+          <li class="active"><a href="index.php">Home</a></li>
+          <li><a href="movies.php">Movies</a></li>
           <li><a href="#">Genres</a></li>
         </ul>
         <form class="navbar-form navbar-left">
@@ -32,8 +33,8 @@ $test = new DB_movie();
           <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li><a href="admin.php"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['username']?> profile</a></li>
+          <li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
         </ul>
       </div>
     </nav>
