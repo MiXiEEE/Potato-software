@@ -20,3 +20,5 @@ Viesturs: index.php, login.php, register.php, admin.php, function.php + database
 
 Ronald: +genres.html and  some other improvings 19:00-23:00 ( ~4h ); 
 Problems - logo in desktop page is hidden, but in botstrap appears (WTF); 
+
+Note: in admin.php and movies.php in navbar, where is Movies, change href from index.php to movies.php
