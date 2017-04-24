@@ -2,9 +2,13 @@
 Movies website, which includes enjoyable up to date and crowd favourite movies collected in one place!! Website is very user friendly with great responsive design, for smaller screen use (phones,tablets). Because of the websites simplicity, users can access anything they need in the website with only couple of clicks.
 
 Project contributors:
+
 Project Manager: Niks Ķilla
+
 Back end: Viesturs Lapiņš
+
 Front end: Ronalds Fišteins
+
 Junior programmer: Sergejs Domina
 
 Ronald: index.html & movies.html from 20:00 to 23:30 (about ~3 hours)
