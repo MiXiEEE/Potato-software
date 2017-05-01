@@ -5,6 +5,9 @@ session_start();
 if(!isset($_SESSION['username'])){ 
     header("Location: index.php");
 }
+if($_SESSION['role'] != 3){ 
+    header("Location: movies.php");
+}
 ?>
 <html lang="en">
 	<head>
