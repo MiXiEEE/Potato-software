@@ -1,6 +1,9 @@
 <?php
 include("function.php");
 $test = new DB_movie();
+if(isset($_SESSION['username'])){ 
+    header("Location: movies.php");
+}
 
 if(isset($_POST["save"])){
 	if($_POST['password1'] == $_POST['password2']){
@@ -8,11 +11,11 @@ if(isset($_POST["save"])){
 		$email = mysqli_real_escape_string($test->getCon(), $_POST["email"]); 
 		$password= md5(mysqli_real_escape_string($test->getCon(), $_POST["password1"])); 
 
-		mysqli_query($test->getCon(), "INSERT INTO user (user_name, password, e_mail)
-		VALUES ('$username', '$password', '$email')");
+		mysqli_query($test->getCon(), "INSERT INTO user (user_name, password, e_mail) VALUES ('$username', '$password', '$email');");
+		$user_id= mysqli_insert_id($test->getCon());
+		mysqli_query($test->getCon(), "INSERT INTO user_has_roles (user_id, roles_id) VALUES ('$user_id', 1);");
 
 		header ("location: index.php");
-
 		
 	}
 else {echo "Passwords must have to match to register successfully!";}
