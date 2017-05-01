@@ -2,6 +2,9 @@
 include("function.php");
 $test = new DB_movie();
 session_start();
+if(isset($_SESSION['username'])){ 
+    header("Location: movies.php");
+}
 
 $msg = "Enter username and password!";
 
@@ -12,6 +15,22 @@ if(isset($_POST["login"])){
 	$i = 0;
 	$sql = "SELECT user_name, password FROM user WHERE user_name = '$myusername' AND password = '$mypassword'";
 	$result = mysqli_query($test->getCon(), $sql);
+
+	//UserID iegūšana
+	$sql = "SELECT id FROM user WHERE user_name = '$myusername' AND password = '$mypassword'";
+	$getUserID = mysqli_query($test->getCon(), $sql);
+	while($row = mysqli_fetch_assoc($getUserID)){
+		$userID = $row['id'];
+	}
+	
+
+	//Lomas ID iegūšana
+	$sql = "SELECT roles_id FROM user_has_roles as r INNER JOIN user as u ON u.id = r.user_id WHERE r.user_id = '$userID'";
+	$getRoleID = mysqli_query($test->getCon(), $sql);
+		while($row = mysqli_fetch_assoc($getRoleID)){
+		$roleID = $row['roles_id'];
+	}
+
 	while(mysqli_fetch_array($result)){
 		$i++;
 	}
@@ -20,6 +39,7 @@ if(isset($_POST["login"])){
 	header("location: movies.php");
 	session_start();
 	$_SESSION['username'] = $myusername;
+	$_SESSION['role'] = $roleID;
 	}
 
 }
