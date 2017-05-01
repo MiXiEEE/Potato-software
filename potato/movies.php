@@ -51,7 +51,7 @@ if(!isset($_SESSION['username'])){
 
 		<div class="container">
 		  <div class="jumbotron">
-		    <h1>Welcome back, <b><?php echo $_SESSION['username']?> !</h1> 
+			  <h1>Welcome back, <b><?php echo $_SESSION['username']?></b> !</h1> 
 		    <p>It is a nice day to check out some movies!</p> 
 		  </div>
 		</div>
