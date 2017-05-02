@@ -1,24 +1,34 @@
 <?php
-include("function.php");
-$test = new DB_movie();
+error_reporting(0);
+require 'connect.php';
+include 'function.php';
 session_start();
 
 		if(isset($_POST["login"])){
 
 			$myusername = test_input($_POST["username"]);
 			$mypassword = test_input($_POST["password"]);
-			$i = 0;
-			$sql = "SELECT user_name, password FROM user WHERE user_name = '$myusername' AND password = '$mypassword'";
-			$result = mysqli_query($test->getCon(), $sql);
-			while(mysqli_fetch_array($result)){
-				$i++;
-			}
-			if($i == 0) {echo "Nepareizs lietotājvārds vai parole";}
-			if($i == 1) { 
-			header("location: movies.php");
-			session_start();
-			$_SESSION['username'] = $myusername;
-			}
+
+            $sql = "SELECT COUNT(user_name) AS num FROM user WHERE user_name = :username AND password = :password";;
+            $stmt = $pdo->prepare($sql);
+    
+            $stmt->bindValue(':username', $myusername);
+            $stmt->bindValue(':password', $mypassword);
+            
+ 
+            $result = $stmt->execute();
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+			
+			
+            if($row['num'] > 0){
+                header("location: movies.php");
+                session_start();
+                $_SESSION['username'] = $myusername;
+            }
+			
+			else {echo "Nepareizs lietotājvārds vai parole";}
+			
 
 		}
 var_dump($_SESSION);
