@@ -1,4 +1,4 @@
-# Potato-software
+﻿# Potato-software
 Movies website, which includes enjoyable up to date and crowd favourite movies collected in one place!! Website is very user friendly with great responsive design, for smaller screen use (phones,tablets). Because of the websites simplicity, users can access anything they need in the website with only couple of clicks. It is a closed type of project, so only registered users can use it.
 
 Project contributors:
@@ -22,3 +22,5 @@ Ronald: +genres.html and  some other improvings 19:00-23:00 ( ~4h );
 Problems - logo in desktop page is hidden, but in botstrap appears (WTF); 
 
 Note: in admin.php and movies.php in navbar, where is Movies, change href from index.php to movies.php
+
+Sergejs: added fild filters & input purifiers(in register.php), removed password hashing temporary, will switching to PDO 

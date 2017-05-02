@@ -7,8 +7,8 @@ $msg = "Enter username and password!";
 
 if(isset($_POST["login"])){
 
-	$myusername = mysqli_real_escape_string($test->getCon(), $_POST["username"]);
-	$mypassword = md5(mysqli_real_escape_string($test->getCon(), $_POST["password"]));
+	$myusername = test_input($_POST["username"]);
+	$mypassword = test_input($_POST["password"]);
 	$i = 0;
 	$sql = "SELECT user_name, password FROM user WHERE user_name = '$myusername' AND password = '$mypassword'";
 	$result = mysqli_query($test->getCon(), $sql);
