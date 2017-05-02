@@ -1,22 +1,85 @@
 <?php
-include("function.php");
-$test = new DB_movie();
+ 
+//register.php
+error_reporting(0);
 
-if(isset($_POST["save"])){
-	if($_POST['password1'] == $_POST['password2']){
-		$username = mysqli_real_escape_string($test->getCon(), $_POST["username"]); 
-		$email = mysqli_real_escape_string($test->getCon(), $_POST["email"]); 
-		$password= md5(mysqli_real_escape_string($test->getCon(), $_POST["password1"])); 
+session_start();
 
-		mysqli_query($test->getCon(), "INSERT INTO user (user_name, password, e_mail)
-		VALUES ('$username', '$password', '$email')");
+require 'connect.php';
+include 'function.php';
 
-		header ("location: index.php");
+if(isset($_POST['save'])){
 
-		
+	$ŗegErrMessage = array();
+	
+	if(empty($_POST['username'])){
+		$ŗegErrMessage[0] = "Username field is required!";
 	}
-else {echo "Passwords must have to match to register successfully!";}
+	else
+	{
+		$username = test_input($_POST['username']);
+
+		$sql = "SELECT COUNT(user_name) AS num FROM user WHERE user_name = :username";
+    	$stmt = $pdo->prepare($sql);
+    	$stmt->bindValue(':username', $username);
+   	 	$stmt->execute();
+   		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if(!preg_match("/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/", $username)){
+			$ŗegErrMessage[0] = "Username contains invalid characters!";
+		}
+
+		elseif($row['num'] > 0){
+			$ŗegErrMessage[0] = "Username already taken!";
+		}
+	}
+	if($_POST['password1'] == "" || $_POST['password2'] == ""){
+		$ŗegErrMessage[1] = "Password fields ar required!";
+	}
+	else
+	{
+		if($_POST['password1'] == $_POST['password2']){
+			$password= test_input($_POST["password1"]); 
+		}
+		else{
+			$ŗegErrMessage[1] = "Passwords must have to match to register successfully!";
+		}
+	}
+	if(empty($_POST['email'])){
+		$ŗegErrMessage[2] = "Email field is required!";
+	}
+	else{
+		$email = test_input($_POST["email"]); 
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      	$ŗegErrMessage[2] = "Invalid email format"; 
+		}
+	}
+
+
+
+
+	if(empty($ŗegErrMessage)){ 
+   
+    $sql = "INSERT INTO user (user_name, password, e_mail) VALUES (:username, :password, :email)";
+    $stmt = $pdo->prepare($sql);
+    
+    $stmt->bindValue(':username', $username);
+    $stmt->bindValue(':password', $password);
+    $stmt->bindValue(':email', $email);
+ 
+    $result = $stmt->execute();
+		if($result){
+			$message = 'You have successfully registered.';
+
+    		echo "<SCRIPT type='text/javascript'>
+        	alert('$message');
+        	window.location.replace(\"index.php\");
+    		</SCRIPT>";
+		}
+    }
+   
 }
+    
 
 ?>
 
@@ -49,6 +112,16 @@ else {echo "Passwords must have to match to register successfully!";}
 	  <h1 class="text-center well well-lg">Register to open a whole new world!</h1>
 
 	<div class="container-fluid well well-lg">
+	<?php
+            if (!empty($ŗegErrMessage)) {
+            	//print_r($_POST);
+            	echo '<div class="alert alert-danger">';
+            	foreach ($ŗegErrMessage as $error) {
+            		echo '<strong>Error: </strong> ' . $error . '</br>';
+            	}
+                echo '</div>';
+            }
+    ?>
 	<form class="form-horizontal" action = "register.php" method = "post" enctype="multipart/form-data">
 
 		<fieldset>
@@ -56,7 +129,7 @@ else {echo "Passwords must have to match to register successfully!";}
 		<div class="form-group">
 	      	<label class="control-label col-md-2" for="username" >Username:</label>
 	      <div class="col-md-9">          
-	        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username"></br>
+	        <input type="text" value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>" class="form-control" id="username" name="username" placeholder="Enter your username"></br>
 	      </div>
 	    </div>
 	</div>
@@ -84,7 +157,7 @@ else {echo "Passwords must have to match to register successfully!";}
 	   	<div class="form-group">
 	      	<label class="control-label col-md-2" for="mail">E-mail:</label>
 	      <div class="col-md-9">          
-	        <input type="email" class="form-control" id="mail" name="email" placeholder="Enter e-mail"><br>
+	        <input type="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>" class="form-control" id="mail" name="email" placeholder="Enter e-mail"><br>
 	      </div>
 	    </div>
 	</div>
@@ -93,7 +166,7 @@ else {echo "Passwords must have to match to register successfully!";}
 		<div class="form-group"> 
 			<div class="col-md-5 col-xs-1"></div>
 			    <div class="button">
-			      <button type="submit" class="btn btn-primary btn-md" name="save" id="send" onclick="alert('You have successfully registered!')">Register</button>
+			      <button type="submit" class="btn btn-primary btn-md" name="save" id="send">Register</button>
 			    </div>
   		</div>
 	</div>

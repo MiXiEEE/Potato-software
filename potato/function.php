@@ -1,4 +1,5 @@
 <?php
+
 class DB_movie{
 	protected $server = "localhost";
 	protected $dbuser = "root";
@@ -130,5 +131,12 @@ class DB_movie{
 	}
 
 }
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
 
 ?>
