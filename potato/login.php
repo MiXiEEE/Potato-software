@@ -1,7 +1,6 @@
 <?php
 error_reporting(0);
-require 'connect.php';
-include 'function.php';
+require 'function.php';
 session_start();
 
 		if(isset($_POST["login"])){

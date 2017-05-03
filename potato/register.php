@@ -1,12 +1,10 @@
 <?php
- 
+require 'function.php'; 
 //register.php
 error_reporting(0);
 
 session_start();
 
-require 'connect.php';
-include 'function.php';
 
 if(isset($_POST['save'])){
 
@@ -168,10 +166,14 @@ if(isset($_POST['save'])){
 			    <div class="button">
 			      <button type="submit" class="btn btn-primary btn-md" name="save" id="send">Register</button>
 			    </div>
+			 
   		</div>
 	</div>
 
 	</fieldset>
+   		<div class="btn-groupcol-md-5 col-xs-1" role="group">
+			<a href="index.php"><h2 class = "glyphicon glyphicon-circle-arrow-left"></h2></a>
+		</div>
 
 	</form>
 	</div>

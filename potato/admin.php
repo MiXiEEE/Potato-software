@@ -1,6 +1,5 @@
 <?php
-include("function.php");
-$test = new DB_movie();
+require 'function.php';
 session_start();
 if(!isset($_SESSION['username'])){ 
     header("Location: index.php");
@@ -22,10 +21,10 @@ if(!isset($_SESSION['username'])){
     <nav class="navbar navbar-inverse">
       <div class="container-fluid navbar-inner">
         <div class="navbar-header">
-          <a href="index.php"><img class="logo img-responsive" type="image/png" src="img/potato_logo.png"></a>
+          <a href="movies.php"><img class="logo img-responsive" type="image/png" src="img/potato_logo.png"></a>
         </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.php">Home</a></li>
+          <li class="active"><a href="movies.php">Home</a></li>
           <li><a href="movies.php">Movies</a></li>
           <li><a href="#">Genres</a></li>
         </ul>
@@ -69,7 +68,7 @@ if(!isset($_SESSION['username'])){
 
 <div class="tab-pane text-style" id="tab2">
   <h2>User data</h2>
-  <?php $test->showAllUsers(); ?>   
+  <?php showAllUsers(); ?>   
 </div>
 
 <div class="tab-pane text-style" id="tab3">
@@ -80,16 +79,24 @@ if(!isset($_SESSION['username'])){
           <label for="userid">Delete user by ID:</label>
           <input type="number" class="form-control" id="userid" name="userID" placeholder="Enter ID...">
           <br>
-          <button type="submit" class="btn btn-danger" name="userIDSend" onclick="alert('User is deleted!')">Delete user</button>
+          <button type="submit" class="btn btn-danger" name="userIDSend">Delete user</button>
         </div>
       </div>
     </form>
 
     <?php
     if(isset($_POST["userIDSend"])){
-        $userID = mysqli_real_escape_string($test->getCon(), $_POST["userID"]); 
+      if(!empty($_POST["userIDSend"])){
+        $userID = test_input($_POST["userID"]); 
+        deleteUser($userID);
 
-        $test->deleteUser($userID);
+      }
+      else{
+        $message = 'Select ID.';
+        echo "<SCRIPT type='text/javascript'>
+        alert('$message');
+        </SCRIPT>";
+      }
     }
     ?>
 
@@ -117,20 +124,28 @@ if(!isset($_SESSION['username'])){
           <label for="userE">Enter new e-mail:</label>
           <input type="email" class="form-control" id="userE" name="editUserMail" placeholder="E-mail...">
           <br>
-          <button type="submit" class="btn btn-success" name="userInput" onclick="alert('User is edited!')">Edit user</button>
+          <button type="submit" class="btn btn-success" name="userInput">Edit user</button>
         </div>
       </div>
 
     
     </form>
 
-    <?php
+    #<?php
     if(isset($_POST["userInput"])){
-        $userID = mysqli_real_escape_string($test->getCon(), $_POST["editUserID"]); 
-        $UserName = mysqli_real_escape_string($test->getCon(), $_POST["editUserName"]); 
-        $UserPass = md5(mysqli_real_escape_string($test->getCon(), $_POST["editUserPass"])); 
-        $UserMail = mysqli_real_escape_string($test->getCon(), $_POST["editUserMail"]); 
-        $test->editUser($userID, $UserName, $UserPass, $UserMail);
+      if(!empty($_POST["userInput"])){
+        $userID   = test_input($_POST["editUserID"]); 
+        $UserName = test_input($_POST["editUserName"]); 
+        $UserPass = test_input($_POST["editUserPass"]); 
+        $UserMail = test_input($_POST["editUserMail"]); 
+        editUser($userID, $UserName, $UserPass, $UserMail);
+      }else{
+        $message = 'All filds must be filled.';
+        echo "<SCRIPT type='text/javascript'>
+        alert('$message');
+        </SCRIPT>";
+      }
+
     }
     ?>
 </div>
@@ -179,21 +194,30 @@ if(!isset($_SESSION['username'])){
           <label for="mUser">Enter user by ID:</label>
           <input type="number" class="form-control" id="mUser" name="movieUser" placeholder="User ID...">
           <br>
-          <button type="submit" class="btn btn-success" name="movieInput" onclick="alert('Movie is added!')">Add movie</button>
+          <button type="submit" class="btn btn-success" name="movieInput">Add movie</button>
         </div>
       </div>      
     </form>
 
     <?php
     if(isset($_POST["movieInput"])){
-        $title = mysqli_real_escape_string($test->getCon(), $_POST["movieTITLE"]); 
-        $movieDesc = mysqli_real_escape_string($test->getCon(), $_POST["movieDESC"]); 
-        $movieDate = mysqli_real_escape_string($test->getCon(), $_POST["movieDATE"]); 
-        $movieDirector = mysqli_real_escape_string($test->getCon(), $_POST["movieDIRECTOR"]); 
-        $movieActors = mysqli_real_escape_string($test->getCon(), $_POST["movieACTORS"]); 
-        $movieCat = mysqli_real_escape_string($test->getCon(), $_POST["movieCatID"]); 
-        $userAdded = mysqli_real_escape_string($test->getCon(), $_POST["movieUser"]); 
-        $test->addMovie($title, $movieDesc, $movieDate, $movieDirector, $movieActors, $userAdded, $movieCat);
+      if(!empty($_POST["movieInput"])){
+        $title = test_input($_POST["movieTITLE"]); 
+        $movieDesc = test_input($_POST["movieDESC"]); 
+        $movieDate = test_input($_POST["movieDATE"]); 
+        $movieDirector = test_input($_POST["movieDIRECTOR"]); 
+        $movieActors = test_input($_POST["movieACTORS"]); 
+        $movieCat = test_input($_POST["movieCatID"]); 
+        $userAdded = test_input($_POST["movieUser"]); 
+        addMovie($title, $movieDesc, $movieDate, $movieDirector, $movieActors, $userAdded, $movieCat);
+      }
+      else
+      {
+        $message = 'All filds must be filled.';
+        echo "<SCRIPT type='text/javascript'>
+        alert('$message');
+        </SCRIPT>";
+      }
     }
     ?>
 
@@ -203,16 +227,25 @@ if(!isset($_SESSION['username'])){
           <label for="movieid">Delete movie by ID:</label>
           <input type="number" class="form-control" id="movieid" name="MovieID" placeholder="Enter ID...">
           <br>
-          <button type="submit" class="btn btn-danger" name="MovieIDSend" onclick="alert('Movie is deleted!')">Delete movie</button>
+          <button type="submit" class="btn btn-danger" name="MovieIDSend" >Delete movie</button>
         </div>
       </div>
     </form>
 
     <?php
     if(isset($_POST["MovieIDSend"])){
-        $MovieID = mysqli_real_escape_string($test->getCon(), $_POST["MovieID"]); 
+      if(!empty($_POST["MovieIDSend"])){
+        $MovieID = test_input($_POST["MovieID"]); 
 
-        $test->deleteMovie($MovieID);
+        deleteMovie($MovieID);
+      }
+      else
+      {
+        $message = 'Pick a ID.';
+        echo "<SCRIPT type='text/javascript'>
+        alert('$message');
+        </SCRIPT>";
+      }
     }
     ?>
 </div>

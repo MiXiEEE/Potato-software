@@ -1,5 +1,6 @@
 <?php 
-include("function.php");
+
+require 'function.php';
 session_start();
 if(!isset($_SESSION['username'])){ 
     header("Location: index.php");
@@ -29,7 +30,7 @@ if(!isset($_SESSION['username'])){
 		<nav class="navbar navbar-inverse">
 		  <div class="container-fluid navbar-inner">
 		    <div class="navbar-header">
-		      <a href="index.php"><img class="logo img-responsive" type="image/png" src="img/potato_logo.png"></a>
+		      <a href="movies.php"><img class="logo img-responsive" type="image/png" src="img/potato_logo.png"></a>
 		    </div>
 		    <ul class="nav navbar-nav">
 		      <li class="active"><a href="#">Home</a></li>
